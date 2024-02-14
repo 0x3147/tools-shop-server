@@ -1,9 +1,7 @@
 package com.jump.toolsshop.common;
 
 import com.jump.toolsshop.exception.ToolsShopErrorEnum;
-import lombok.Data;
 
-@Data
 public class ApiResponse<T> {
     private Integer status;
 
@@ -52,5 +50,37 @@ public class ApiResponse<T> {
 
     public static <T> ApiResponse<T> error(ToolsShopErrorEnum exception) {
         return new ApiResponse<>(exception.getCode(), exception.getMessage(), false);
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 }
