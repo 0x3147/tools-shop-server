@@ -102,4 +102,26 @@
         </plugins>
     </build>
 
+    <profiles>
+        <!-- 测试环境 -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <env.config>generator-test.properties</env.config>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <!-- 生产环境 -->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <env.config>generator-prod.properties</env.config>
+            </properties>
+        </profile>
+    </profiles>
+
+
 </project>
