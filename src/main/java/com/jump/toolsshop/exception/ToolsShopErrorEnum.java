@@ -5,7 +5,9 @@ public enum ToolsShopErrorEnum {
     NEED_USER_PASSWORD(10002, "密码不能为空"),
     NEED_USER_EMAIL(10003, "邮箱不能为空"),
     USER_NAME_EXIST(10004, "该用户名已存在"),
-    INSERT_FAILURE(10005, "注册失败");
+    INSERT_FAILURE(10005, "注册失败"),
+
+    SYSTEM_ERROR(20000, "系统错误，请联系管理员，或者稍后再试");
 
     private Integer code;
 
