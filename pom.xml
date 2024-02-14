@@ -96,8 +96,15 @@
                 <configuration>
                     <configurationFile>src/main/resources/mybatis-generator-config.xml</configurationFile>
                     <overwrite>true</overwrite>
-                    <includeCompileDependencies>true</includeCompileDependencies>
                 </configuration>
+                <dependencies>
+                    <!-- mysql的JDBC驱动 -->
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.28</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
