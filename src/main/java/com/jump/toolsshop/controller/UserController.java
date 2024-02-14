@@ -22,7 +22,7 @@ public class UserController {
             @RequestParam("username") String username,
             @RequestParam("email") String email,
             @RequestParam("password") String password
-    ) {
+    ) throws Exception {
         if (!StringUtils.hasText(username)) {
             return ApiResponse.error(ToolsShopErrorEnum.NEED_USER_NAME);
         }
@@ -32,6 +32,9 @@ public class UserController {
         if (!StringUtils.hasText(password)) {
             return ApiResponse.error(ToolsShopErrorEnum.NEED_USER_PASSWORD);
         }
-        return null;
+
+        userService.register(username, email, password);
+
+        return ApiResponse.success();
     }
 }
