@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class ApiResponse<T> {
-    private Integer code;
+    private Integer status;
 
     private String message;
 
@@ -19,15 +19,15 @@ public class ApiResponse<T> {
 
     public static final Boolean OK_SUCCESS = true;
 
-    public ApiResponse(Integer code, String message, Boolean success, T data) {
-        this.code = code;
+    public ApiResponse(Integer status, String message, Boolean success, T data) {
+        this.status = status;
         this.message = message;
         this.success = success;
         this.data = data;
     }
 
-    public ApiResponse(Integer code, String message, Boolean success) {
-        this.code = code;
+    public ApiResponse(Integer status, String message, Boolean success) {
+        this.status = status;
         this.message = message;
         this.success = success;
     }
@@ -46,8 +46,8 @@ public class ApiResponse<T> {
         return response;
     }
 
-    public static <T> ApiResponse<T> error(Integer code, String message) {
-        return new ApiResponse<>(code, message, false);
+    public static <T> ApiResponse<T> error(Integer status, String message) {
+        return new ApiResponse<>(status, message, false);
     }
 
     public static <T> ApiResponse<T> error(ToolsShopErrorEnum exception) {
