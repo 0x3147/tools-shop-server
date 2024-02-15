@@ -36,3 +36,4 @@ application-test.yml
 application-prod.yml
 generator-test.properties
 generator-prod.properties
+/log/
