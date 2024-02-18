@@ -4,6 +4,7 @@ import com.jump.toolsshop.entity.User;
 import com.jump.toolsshop.exception.ToolsShopErrorEnum;
 import com.jump.toolsshop.exception.ToolsShopException;
 import com.jump.toolsshop.mapper.UserMapper;
+import com.jump.toolsshop.util.Argon2Util;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,10 +21,12 @@ public class UserService {
             throw new ToolsShopException(ToolsShopErrorEnum.USER_NAME_EXIST);
         }
 
+        var hashPassword = Argon2Util.hashPassword(password);
+
         var user = new User();
         user.setUsername(username);
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(hashPassword);
 
         var count = userMapper.insertSelective(user);
         if (count == 0) {

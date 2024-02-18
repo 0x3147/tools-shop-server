@@ -4,14 +4,12 @@ import com.jump.toolsshop.common.ApiResponse;
 import com.jump.toolsshop.exception.ToolsShopErrorEnum;
 import com.jump.toolsshop.service.UserService;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 @RestController
+@RequestMapping("user")
 public class UserController {
     @Resource
     UserService userService;
