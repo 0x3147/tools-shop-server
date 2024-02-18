@@ -14,6 +14,24 @@ public class UserController {
     @Resource
     UserService userService;
 
+    @PostMapping("/login")
+    @ResponseBody
+    public ApiResponse login(
+            @RequestParam("username") String username,
+            @RequestParam("password") String password
+    ) throws Exception {
+        if (!StringUtils.hasText(username)) {
+            return ApiResponse.error(ToolsShopErrorEnum.NEED_USER_NAME);
+        }
+        if (!StringUtils.hasText(password)) {
+            return ApiResponse.error(ToolsShopErrorEnum.NEED_USER_PASSWORD);
+        }
+
+        userService.login(username, password);
+
+        return ApiResponse.success();
+    }
+
     @PostMapping("/register")
     @ResponseBody
     public ApiResponse register(

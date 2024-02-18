@@ -13,6 +13,19 @@ import javax.annotation.Resource;
 public class UserService {
     @Resource
     UserMapper userMapper;
+    public void login(String username, String password) throws Exception {
+        var res = userMapper.selectByUserName(username);
+
+        if (res == null) {
+            throw new ToolsShopException(ToolsShopErrorEnum.USER_NOT_EXIST);
+        }
+
+        var passwordCheck = Argon2Util.verifyPassword(res.getPassword(), password);
+
+        if (!passwordCheck) {
+            throw new ToolsShopException(ToolsShopErrorEnum.USER_PASSWORD_ERROR);
+        }
+    }
 
     public void register(String username, String email, String password) throws Exception {
         var res = userMapper.selectByUserName(username);
