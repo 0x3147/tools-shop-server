@@ -5,6 +5,8 @@ import java.util.Date;
 public class User {
     private Long id;
 
+    private Long postId;
+
     private String username;
 
     private String password;
@@ -23,6 +25,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Long postId) {
+        this.postId = postId;
     }
 
     public String getUsername() {
