@@ -28,9 +28,9 @@ public class UserController {
             return ApiResponse.error(ToolsShopErrorEnum.NEED_USER_PASSWORD);
         }
 
-        var info = userService.login(username, password);
+        userService.login(username, password);
 
-        return ApiResponse.success(info);
+        return ApiResponse.success();
     }
 
     @PostMapping("/register")

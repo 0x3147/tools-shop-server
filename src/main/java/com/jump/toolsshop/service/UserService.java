@@ -15,7 +15,7 @@ import java.util.Map;
 public class UserService {
     @Resource
     UserMapper userMapper;
-    public Map<String, String> login(String username, String password) throws Exception {
+    public void login(String username, String password) throws Exception {
         var res = userMapper.selectByUserName(username);
 
         if (res == null) {
@@ -27,12 +27,6 @@ public class UserService {
         if (!passwordCheck) {
             throw new ToolsShopException(ToolsShopErrorEnum.USER_PASSWORD_ERROR);
         }
-
-        var infoMap = new HashMap<String, String>();
-        infoMap.put("username", res.getUsername());
-        infoMap.put("email", res.getEmail());
-
-        return infoMap;
     }
 
     public void register(String username, String email, String password) throws Exception {
