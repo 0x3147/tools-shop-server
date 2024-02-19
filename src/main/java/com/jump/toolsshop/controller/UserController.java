@@ -7,6 +7,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 @RestController
 @RequestMapping("user")
@@ -27,9 +28,9 @@ public class UserController {
             return ApiResponse.error(ToolsShopErrorEnum.NEED_USER_PASSWORD);
         }
 
-        userService.login(username, password);
+        var info = userService.login(username, password);
 
-        return ApiResponse.success();
+        return ApiResponse.success(info);
     }
 
     @PostMapping("/register")
