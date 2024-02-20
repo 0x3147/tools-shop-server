@@ -1,13 +1,13 @@
 package com.jump.toolsshop.controller;
 
 import com.jump.toolsshop.common.ApiResponse;
+import com.jump.toolsshop.dto.UserInfoDto;
 import com.jump.toolsshop.exception.ToolsShopErrorEnum;
 import com.jump.toolsshop.service.UserService;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Map;
 
 @RestController
 @RequestMapping("user")
@@ -53,5 +53,13 @@ public class UserController {
         userService.register(username, email, password);
 
         return ApiResponse.success();
+    }
+
+    @PostMapping("/info")
+    @ResponseBody
+    public ApiResponse<UserInfoDto> getUserInfo(@RequestParam("postId") Long postId) throws Exception {
+        var res = userService.getUserInfo(postId);
+
+        return ApiResponse.success(res);
     }
 }

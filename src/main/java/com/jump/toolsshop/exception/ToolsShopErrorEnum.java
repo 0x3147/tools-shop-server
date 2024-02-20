@@ -8,7 +8,8 @@ public enum ToolsShopErrorEnum {
     INSERT_FAILURE(10005, "注册失败"),
     USER_NOT_EXIST(10006, "该用户不存在"),
     USER_PASSWORD_ERROR(10007, "登陆密码错误"),
-    SYSTEM_ERROR(20000, "系统错误，请联系管理员，或者稍后再试");
+    SYSTEM_ERROR(20000, "系统错误，请联系管理员，或者稍后再试"),
+    DATABASE_ERROR(20001, "数据访问异常");
 
     private Integer code;
 

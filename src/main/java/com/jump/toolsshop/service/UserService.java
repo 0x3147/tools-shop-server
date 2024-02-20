@@ -1,15 +1,17 @@
 package com.jump.toolsshop.service;
 
+import com.github.yitter.idgen.YitIdHelper;
+import com.jump.toolsshop.dto.UserInfoDto;
 import com.jump.toolsshop.entity.User;
 import com.jump.toolsshop.exception.ToolsShopErrorEnum;
 import com.jump.toolsshop.exception.ToolsShopException;
 import com.jump.toolsshop.mapper.UserMapper;
 import com.jump.toolsshop.util.Argon2Util;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class UserService {
@@ -29,6 +31,7 @@ public class UserService {
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void register(String username, String email, String password) throws Exception {
         var res = userMapper.selectByUserName(username);
 
@@ -38,14 +41,34 @@ public class UserService {
 
         var hashPassword = Argon2Util.hashPassword(password);
 
-        var user = new User();
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPassword(hashPassword);
+        try {
+            var user = new User();
+            var postId = YitIdHelper.nextId();
+            user.setPostId(postId);
+            user.setUsername(username);
+            user.setEmail(email);
+            user.setPassword(hashPassword);
 
-        var count = userMapper.insertSelective(user);
-        if (count == 0) {
-            throw new ToolsShopException(ToolsShopErrorEnum.INSERT_FAILURE);
+            var count = userMapper.insertSelective(user);
+            if (count == 0) {
+                throw new ToolsShopException(ToolsShopErrorEnum.INSERT_FAILURE);
+            }
+        } catch (DataAccessException e) {
+            throw new ToolsShopException(ToolsShopErrorEnum.DATABASE_ERROR);
         }
+    }
+
+    public UserInfoDto getUserInfo(Long postId) throws Exception {
+        var currentUser = userMapper.selectByPostId(postId);
+
+        if (currentUser == null) {
+            throw new ToolsShopException(ToolsShopErrorEnum.USER_NOT_EXIST);
+        }
+
+        var userInfo = new UserInfoDto();
+        userInfo.setPostId(currentUser.getPostId());
+        userInfo.setUsername(currentUser.getUsername());
+
+        return userInfo;
     }
 }
